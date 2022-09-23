@@ -1,7 +1,11 @@
 package be.abis.sandwichorder.test;
 
+import be.abis.sandwichorder.model.MenuManager;
+import be.abis.sandwichorder.model.MenuPreview;
 import be.abis.sandwichorder.model.Sandwich;
 import be.abis.sandwichorder.model.SandwichCompany;
+import be.abis.sandwichorder.repository.CompanyRepository;
+import be.abis.sandwichorder.repository.SandwichRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,18 +13,24 @@ import java.util.List;
 public class Test {
 
     public static void main(String[] args) {
-        SandwichCompany pinky = new SandwichCompany("pinky", "testmenu", "testadress");
-        ArrayList<String> smosIngredients = new ArrayList<>();
-        smosIngredients.add("Cheese");
-        smosIngredients.add("Ham");
-        ArrayList<String> smosVegetables = new ArrayList<>();
-        smosVegetables.add("Salad");
-        smosVegetables.add("Tomato");
-        smosVegetables.add("Carrots");
-        ArrayList<String> smosBaseLayer = new ArrayList<>();
-        smosBaseLayer.add("Mayo");
 
-        Sandwich smos = new Sandwich("smos", "white",smosIngredients, 4.00, smosVegetables, smosBaseLayer
-                , pinky, "test", false, "vlees");
+        MenuManager menuManager = new MenuManager();
+        System.out.println(SandwichRepository.findSandwichesByRestaurant("Pinky's"));
+
+
+        menuManager.createMenu("Vleugels");
+        MenuPreview menuPreview = menuManager.setMenuOfTheDay();
+
+        System.out.println(menuManager.findSandwichesOfCompany("Vleugels"));
+        System.out.println(menuManager.findSandwichesOfCompany("Vleugels"));
+
+        System.out.println(menuManager.findSandwichOfCompany("Vleugels"));
+
+        System.out.println(SandwichRepository.getSandwichList());
+
+        menuPreview.printMenu();
+
+        ///repository van static naar normale class zetten en dan alle methods aanpasse en overbodige methods verwijderen
+
     }
 }
