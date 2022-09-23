@@ -3,6 +3,8 @@ package be.abis.sandwichorder.repository;
 import be.abis.sandwichorder.model.Session;
 import be.abis.sandwichorder.model.Student;
 
+import java.util.ArrayList;
+
 public class SessionRepository {
 
     private static Student[] students1 = {StudentRepository.findByFirstName(""),
@@ -49,13 +51,14 @@ public class SessionRepository {
 
     public static Session[] sessions = {se1,se2,se3,se4};
 
-    public static Session findByDate(String date){
+    public static ArrayList<Session> findByDate(String date){
+        ArrayList<Session> dailySessions = new ArrayList<Session>();
         for(Session se:sessions){
             String[] allDates = se.getDates();
             for (String d:allDates) {
-                if (d.equals(date)) return se;
+                if (d.equals(date)) dailySessions.add(se);
             }
         }
-        return null;
+        return dailySessions;
     }
 }
