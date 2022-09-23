@@ -2,27 +2,27 @@ package be.abis.sandwichorder.model;
 
 public class Teacher extends Person{
 
-    private Course course;
+    private String course;
 
-    public Teacher(String firstName, String lastName, String email, String company, Course course) {
+    public Teacher(String firstName, String lastName, String email, String company, String course) {
         super(firstName, lastName, email, company);
         this.course = course;
     }
 
 
 
-    /*
-    public Order viewCurrentOrder(){
 
+    public void viewOrderOfToday(){
+        System.out.println();
     }
-    */
 
 
-    public Course getCourse() {
+
+    public String getCourse() {
         return course;
     }
 
-    public void setCourse(Course course) {
+    public void setCourse(String course) {
         this.course = course;
     }
 }
