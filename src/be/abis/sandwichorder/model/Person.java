@@ -6,13 +6,23 @@ public class Person {
     private String lastName;
     private String email;
     private String company;
+    private int counter = 0;
+    private int personNr;
 
-    public Person(String firstName, String lastName, String email, String company) {
+    public Person(String personNr, String firstName, String lastName, String email, String company) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.company = company;
+        if (personNr == null) {
+            this.personNr = ++counter;
+        } else {
+            this.personNr = Integer.parseInt(personNr);
+            counter = Math.max(counter, this.personNr);
+        }
     }
+
+    public Person(){}
 
 
     public void orderSandwich(Sandwich sandwich){
@@ -21,6 +31,16 @@ public class Person {
 
 
     //getters and setters
+
+
+    public int getPersonNr() {
+        return personNr;
+    }
+
+    public void setPersonNr(int personNr) {
+        this.personNr = personNr;
+    }
+
     public String getFirstName() {
         return firstName;
     }

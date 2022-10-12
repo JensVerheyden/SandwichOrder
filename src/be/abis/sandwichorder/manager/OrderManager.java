@@ -2,28 +2,26 @@ package be.abis.sandwichorder.manager;
 
 import be.abis.sandwichorder.model.*;
 
+import javax.swing.plaf.BorderUIResource;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class OrderManager {
 
+    private static OrderManager instance;
+    private OrderManager(){}
+
+    public static OrderManager getInstance() {
+        if (instance == null) instance = new OrderManager();
+        return instance;
+    }
+
 
     public void printTicket() {}
 
-    public void createOrder(String date){
+    public void createNewDailyOrder(LocalDate date){
 
-        ArrayList<Student> studentsOfDay = new ArrayList<Student>();
 
-        ArrayList<DailySession> dailySessions = SessionManager.createDailySessions(date);
-        for (DailySession d:dailySessions){
-            for(Student s:d.getStudents()) studentsOfDay.add(s);
-        }
-
-        SandwichCompany sandwichCompany = MenuManager.getMenuOfTheDay().company();
-
-        DayOrder dayOrder = new DayOrder(date, sandwichCompany, studentsOfDay );
-        // find how to actually use the just created dayOrder
-        // the manager calls createNewOrder()
-        // which they should assign to a var
     }
 
     public void saveOrder(){}

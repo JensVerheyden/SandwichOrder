@@ -2,14 +2,14 @@ package be.abis.sandwichorder.model;
 
 public class Teacher extends Person{
 
-    private String course;
+    private String currentCourseName;
 
-    public Teacher(String firstName, String lastName, String email, String company, String course) {
-        super(firstName, lastName, email, company);
-        this.course = course;
+    public Teacher(String personNr, String firstName, String lastName, String email, String company, String currentCourseName) {
+        super(personNr,firstName, lastName, email, company);
+        this.currentCourseName = currentCourseName;
     }
 
-
+    public Teacher(){};
 
 
     public void viewOrderOfToday(){
@@ -18,11 +18,11 @@ public class Teacher extends Person{
 
 
 
-    public String getCourse() {
-        return course;
+    public String getCurrentCourseName() {
+        return currentCourseName;
     }
 
-    public void setCourse(String course) {
-        this.course = course;
+    public void setCurrentCourseName(String course) {
+        this.currentCourseName = currentCourseName;
     }
 }

@@ -1,17 +1,20 @@
 package be.abis.sandwichorder.model;
 
+import java.time.LocalDate;
+import java.util.List;
+
 public class Session {
 
     private String courseName;
     private Teacher teacher;
-    private Student[] students;
-    private String[] dates;
+    private List<Student> students;
+    private LocalDate date;
 
-    public Session(String courseName, Teacher teacher, Student[] students, String[] dates) {
+    public Session(String courseName, Teacher teacher, List<Student> students, LocalDate date) {
         this.courseName = courseName;
         this.teacher = teacher;
         this.students = students;
-        this.dates = dates;
+        this.date = date;
     }
 
 
@@ -31,19 +34,19 @@ public class Session {
         this.teacher = teacher;
     }
 
-    public Student[] getStudents() {
+    public List<Student> getStudents() {
         return students;
     }
 
-    public void setStudents(Student[] students) {
+    public void setStudents(List<Student> students) {
         this.students = students;
     }
 
-    public String[] getDates() {
-        return dates;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setDates(String[] dates) {
-        this.dates = dates;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 }
