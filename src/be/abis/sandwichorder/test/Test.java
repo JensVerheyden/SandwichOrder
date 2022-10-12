@@ -1,11 +1,15 @@
 package be.abis.sandwichorder.test;
 
+import be.abis.sandwichorder.model.Menu;
 import be.abis.sandwichorder.model.MenuManager;
+import be.abis.sandwichorder.model.MenuPreview;
 import be.abis.sandwichorder.model.Sandwich;
 import be.abis.sandwichorder.repository.FileCompanyRepository;
 import be.abis.sandwichorder.repository.FileSandwichRepository;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Period;
 
 public class Test {
 
@@ -40,6 +44,9 @@ public class Test {
         for (Sandwich sandwich : menuManager.getMenu().getSandwichList()) {
             System.out.print(sandwich.getName() + " ");
         }
+
+        MenuPreview dayMenu = menuManager.setMenuOfTheDay();
+        dayMenu.printMenu();
 
     }
 }

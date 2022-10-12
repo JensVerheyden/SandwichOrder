@@ -9,7 +9,14 @@ public class MenuPreview {
     }
 
     public void printMenu() {
-        System.out.println(dayMenu.toString());
+
+        System.out.println(dayMenu.getSandwichCompany());
+        System.out.println("-------------------------------");
+        for (Sandwich s : dayMenu.getSandwichList()) {
+            System.out.printf("%-20s %-20s %-20s %-20s \n",
+                    s.getOrderInMenu(),s.getName(), s.getIngredientList(), s.getPrice());
+        }
+
     }
 
     public Menu getDayMenu() {
