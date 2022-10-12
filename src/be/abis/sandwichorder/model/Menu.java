@@ -1,9 +1,6 @@
 package be.abis.sandwichorder.model;
 
-import be.abis.sandwichorder.repository.SandwichRepository;
-
 import java.util.List;
-import java.util.Objects;
 
 public class Menu {
 
@@ -13,6 +10,14 @@ public class Menu {
     public Menu(String sandwichCompany, List<Sandwich> sandwichList) {
         this.sandwichCompany = sandwichCompany;
         this.sandwichList = sandwichList;
+    }
+
+    public void addSandwichToMenu(Sandwich sandwich) {
+        sandwichList.add(sandwich);
+    }
+
+    public void removeSandwich(Sandwich sandwich) {
+        sandwichList.remove(sandwich);
     }
 
     public String getSandwichCompany() {
@@ -26,6 +31,8 @@ public class Menu {
     public void setSandwichCompany(String sandwichCompany) {
         this.sandwichCompany = sandwichCompany;
     }
+
+
 
     public void setSandwichList(List<Sandwich> sandwichList) {
         this.sandwichList = sandwichList;

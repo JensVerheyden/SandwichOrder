@@ -6,20 +6,22 @@ import java.util.List;
 
 public class Sandwich {
 
-    private int ID;
-    private int orderInMenu;
+    private String ID;
+    private String orderInMenu;
     private SandwichCompany sandwichCompany;
     private String name;
     private String category;
-    private double price;
+    private String price;
     private String ingredientList;
     private String breadType;
     private boolean vegetables;
     private boolean butter;
     private String comment;
 
+    public Sandwich() {
+    }
 
-    public Sandwich(int ID, int orderInMenu, SandwichCompany sandwichCompany, String name, String category, double price, String ingredientList) {
+    public Sandwich(String ID, String orderInMenu, SandwichCompany sandwichCompany, String name, String category, String price, String ingredientList) {
         this.ID = ID;
         this.orderInMenu = orderInMenu;
         this.sandwichCompany = sandwichCompany;
@@ -29,19 +31,19 @@ public class Sandwich {
         this.ingredientList = ingredientList;
     }
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(String ID) {
         this.ID = ID;
     }
 
-    public int getOrderInMenu() {
+    public String getOrderInMenu() {
         return orderInMenu;
     }
 
-    public void setOrderInMenu(int orderInMenu) {
+    public void setOrderInMenu(String orderInMenu) {
         this.orderInMenu = orderInMenu;
     }
 
@@ -69,11 +71,11 @@ public class Sandwich {
         this.category = category;
     }
 
-    public double getPrice() {
+    public String getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 

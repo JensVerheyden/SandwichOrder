@@ -7,6 +7,9 @@ public class SandwichCompany {
     private String name;
     private String address;
 
+    public SandwichCompany() {
+    }
+
     public SandwichCompany(String name, String address) {
         this.name = name;
         this.address = address;

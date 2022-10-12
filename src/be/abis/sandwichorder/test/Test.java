@@ -1,36 +1,45 @@
 package be.abis.sandwichorder.test;
 
 import be.abis.sandwichorder.model.MenuManager;
-import be.abis.sandwichorder.model.MenuPreview;
 import be.abis.sandwichorder.model.Sandwich;
-import be.abis.sandwichorder.model.SandwichCompany;
-import be.abis.sandwichorder.repository.CompanyRepository;
-import be.abis.sandwichorder.repository.SandwichRepository;
+import be.abis.sandwichorder.repository.FileCompanyRepository;
+import be.abis.sandwichorder.repository.FileSandwichRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 public class Test {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
-        MenuManager menuManager = new MenuManager();
-        System.out.println(SandwichRepository.findSandwichesByRestaurant("Pinky's"));
+        FileCompanyRepository fileCompanyRepository = new FileCompanyRepository();
+        System.out.println(fileCompanyRepository.getCompanies().size());
+        System.out.println(fileCompanyRepository.findCompany("Pinky's").getName());
 
+        FileSandwichRepository fileSandwichRepository = FileSandwichRepository.getInstance();
+        System.out.println(fileSandwichRepository.getSandwichList().size());
+        System.out.println(fileSandwichRepository.findSandwichesByRestaurant("Pinky's"));
 
-        menuManager.createMenu("Vleugels");
-        MenuPreview menuPreview = menuManager.setMenuOfTheDay();
+        MenuManager menuManager = MenuManager.getInstance();
+        System.out.println(menuManager.findSandwichesOfCompany("Pinky's"));
 
-        System.out.println(menuManager.findSandwichesOfCompany("Vleugels"));
-        System.out.println(menuManager.findSandwichesOfCompany("Vleugels"));
+        menuManager.createMenu("Pinky's");
+        System.out.println(menuManager.getMenu().getSandwichList().size());
 
-        System.out.println(menuManager.findSandwichOfCompany("Vleugels"));
+        System.out.println(menuManager.findInMenu(3).getName());
+        Sandwich cheese = new Sandwich("30", "5" , fileCompanyRepository.findCompany("Pinky's"), "Cheese", "Vlees",
+                "5.00", "cheese");
 
-        System.out.println(SandwichRepository.getSandwichList());
+        menuManager.addSandwich(cheese);
+        for (Sandwich sandwich : menuManager.getMenu().getSandwichList()) {
+            System.out.print(sandwich.getName() + " ");
+        }
 
-        menuPreview.printMenu();
+        System.out.println();
+        menuManager.removeSandwich("Cheese", "Pinky's");
 
-        ///repository van static naar normale class zetten en dan alle methods aanpasse en overbodige methods verwijderen
+        for (Sandwich sandwich : menuManager.getMenu().getSandwichList()) {
+            System.out.print(sandwich.getName() + " ");
+        }
 
     }
 }

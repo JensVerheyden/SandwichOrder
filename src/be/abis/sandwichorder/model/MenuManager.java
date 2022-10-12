@@ -1,75 +1,72 @@
 package be.abis.sandwichorder.model;
 
-import be.abis.sandwichorder.repository.SandwichRepository;
+import be.abis.sandwichorder.repository.FileSandwichRepository;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class MenuManager {
 
+    private static MenuManager instance;
     Menu menu;
+    FileSandwichRepository fileSandwichRepository = FileSandwichRepository.getInstance();
 
+    public MenuManager() throws IOException {
+    }
+
+    public static MenuManager getInstance() throws IOException {
+        if (instance == null) { instance = new MenuManager();}
+        return instance;
+    }
 
     public void createMenu(String companyName) {
         this.menu = new Menu(companyName, findSandwichesOfCompany(companyName));
     }
 
     public MenuPreview setMenuOfTheDay() {
-        MenuPreview menuPreview = new MenuPreview(this.menu);
-        return menuPreview;
+        return new MenuPreview(this.menu);
     }
 
+
     public List<Sandwich> findSandwichesOfCompany(String companyName) {
-        ArrayList<Sandwich> sandwichesOfCompany = new ArrayList<>();
-        for (Sandwich s : Objects.requireNonNull(SandwichRepository.getSandwichList())) {
+        List<Sandwich> sandwichesOfCompany = new ArrayList<>();
+        for (Sandwich s : Objects.requireNonNull(fileSandwichRepository.findSandwichesByRestaurant(companyName))) {
             if (s.getSandwichCompany().getName().equals(companyName)) {
                 sandwichesOfCompany.add(s);
-                System.out.println(s.getName());
-            } else {
-                System.out.println("nop");
             }
-            return sandwichesOfCompany;
         }
         return sandwichesOfCompany;
     }
-
-    public Sandwich findSandwichOfCompany(String company) {
-        Sandwich test = null;
-        for ( Sandwich s : SandwichRepository.getSandwichList()) {
-            if (s.getName().equals(company)) {
-                test = s;
-            }
-        }
-        return test;
-    }
-/*
-    public List<Sandwich> findSandwichesOfCompany(String companyName) {
-        ArrayList<Sandwich>  sandwichesOfCompany= new ArrayList();
-        for (Sandwich s : Objects.requireNonNull(SandwichRepository.findSandwichesByRestaurant(companyName))) {
-            sandwichesOfCompany.add(s);
-            System.out.println(s.getName());
-        }
-        return sandwichesOfCompany;
-    }*/
-
-
-
 
     public Sandwich findInMenu(int sandwichNumber) {
+        String sandwichNumberToString = Integer.toString(sandwichNumber);
+        Sandwich foundSandwich = null;
         for (Sandwich s : menu.getSandwichList()) {
-            if (s.getOrderInMenu()==sandwichNumber) {
-                return s;
+            if (s.getOrderInMenu().equals(sandwichNumberToString)) {
+                foundSandwich =  s;
             }
         }
-        return null;
+        return foundSandwich;
     }
 
-    public void addSandwichToMenu(Sandwich sandwich, Menu menu) {
-        menu.getSandwichList().add(sandwich);
+    public void addSandwich(Sandwich sandwich) {
+        fileSandwichRepository.addSandwichToRepo(sandwich);
+        menu = new Menu(menu.getSandwichCompany(), findSandwichesOfCompany(menu.getSandwichCompany()));
     }
 
-    public void removeSandwichFromMenu(Sandwich sandwich, Menu menu) {
+    public void removeSandwich(String sandwichName, String sandwichCompany) {
+        fileSandwichRepository.removeSandwichFromRepo(sandwichName, sandwichCompany);
+        menu = new Menu(menu.getSandwichCompany(), findSandwichesOfCompany(menu.getSandwichCompany()));
+
     }
 
+    public Menu getMenu() {
+        return menu;
+    }
+
+    public void setMenu(Menu menu) {
+        this.menu = menu;
+    }
 }
