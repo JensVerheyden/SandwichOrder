@@ -6,48 +6,29 @@ import java.util.Date;
 
 public class Order {
 
-    private String date;
-    private SandwichCompany company;
-    private ArrayList<Sandwich> sandwiches;
+    private Person whoOrdered;
+    private Sandwich orderedSandwich;
 
-    public Order() {
+    public Order(Person whoOrdered, Sandwich orderedSandwich) {
+        this.whoOrdered = whoOrdered;
+        this.orderedSandwich = orderedSandwich;
     }
 
-    public Order( SandwichCompany company, String date) {
-        this.date = date;
-        this.company = company;
-        sandwiches = new ArrayList<>();
+
+
+    public Person getWhoOrdered() {
+        return whoOrdered;
     }
 
-    public void addSandwich(Sandwich sandwich) {
-        sandwiches.add(sandwich);
+    public void setWhoOrdered(Person whoOrdered) {
+        this.whoOrdered = whoOrdered;
     }
 
-    public void removeSandwich(Sandwich sandwich) {
-        sandwiches.remove(sandwich);
+    public Sandwich getOrderedSandwich() {
+        return orderedSandwich;
     }
 
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public SandwichCompany getCompany() {
-        return company;
-    }
-
-    public void setCompany(SandwichCompany company) {
-        this.company = company;
-    }
-
-    public ArrayList<Sandwich> getSandwiches() {
-        return sandwiches;
-    }
-
-    public void setSandwiches(ArrayList<Sandwich> sandwiches) {
-        this.sandwiches = sandwiches;
+    public void setOrderedSandwich(Sandwich orderedSandwich) {
+        this.orderedSandwich = orderedSandwich;
     }
 }

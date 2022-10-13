@@ -1,67 +1,96 @@
 package be.abis.sandwichorder.model;
 
+import be.abis.sandwichorder.manager.SessionManager;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 public class DayOrder {
 
-    private String date;
-    private SandwichCompany sandwichCompany;
-    private ArrayList<Student> studentGroups;
-    private ArrayList<Order> orderList = new ArrayList<Order>();
+    private LocalDate date;
+    private Menu dayMenu;
+    private List<Person> allPersons;
+    private List<Order> orderList = new ArrayList<>();
 
 
-    public DayOrder(String date, SandwichCompany sandwichCompany, ArrayList<Student> studentGroups) {
+    public DayOrder(LocalDate date, Menu dayMenu, List<Person> allPersons) {
         this.date = date;
-        this.sandwichCompany = sandwichCompany;
-        this.studentGroups = studentGroups;
+        this.dayMenu = dayMenu;
+        this.allPersons = allPersons;
     }
 
     public void addOrder(Order order){
-
+        orderList.add(order);
+        order.getWhoOrdered().setHasOrdered(true);
     }
 
-    public void removeOrder(Order order){
-
+    public void removeOrder(Person p){
+        orderList.remove(findOrderByPerson(p));
+        p.setHasOrdered(false);
     }
 
-    public void checkIfOrdered(Student student){
+    public String printOrder(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(date).append("     ").append(dayMenu.sandwichCompany);
+        Map<String,List<Order>> sortedOrders = orderList.stream()
+                        .filter(o ->o.getOrderedSandwich().getName() != null)
+                .collect(Collectors.groupingBy(o->o.getWhoOrdered().getCurrentSession()));
+       sortedOrders.forEach((k,v) -> {
+           sb.append("------------------------------------------\n");
+           sb.append(k);
+           v.forEach(p -> sb.append(String.format("%-20s%20s", p.getWhoOrdered().getFirstName(),
+                   p.getOrderedSandwich().getName() + " " + p.getOrderedSandwich().getBreadType() + " veggies:" +
+                           p.getOrderedSandwich().isVegetables())));
+       });
+           return sb.toString();
+       }
 
+    public Order findOrderByPerson(Person p){
+        return orderList.stream()
+                .filter(o -> o.getWhoOrdered().getEmail().equals(p.getEmail()))
+                .findFirst().get();
     }
 
-    public void viewOrderOfSession(String sessionName){
-        //studentGroups
+
+    public void printMenu(){
+        System.out.println(dayMenu);
     }
 
-
-    public String getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
-    public SandwichCompany getSandwichCompany() {
-        return sandwichCompany;
+    public Menu getDayMenu() {
+        return dayMenu;
     }
 
-    public void setSandwichCompany(SandwichCompany sandwichCompany) {
-        this.sandwichCompany = sandwichCompany;
+    public void setDayMenu(Menu dayMenu) {
+        this.dayMenu = dayMenu;
     }
 
-    public ArrayList<Student> getStudentGroups() {
-        return studentGroups;
+    public List<Person> getAllPersons() {
+        return allPersons;
     }
 
-    public void setStudentGroups(ArrayList<Student> studentGroups) {
-        this.studentGroups = studentGroups;
+    public void setAllPersons(List<Person> allPersons) {
+        this.allPersons = allPersons;
     }
 
-    public ArrayList<Order> getOrderList() {
+
+    public List<Order> getOrderList() {
         return orderList;
     }
 
-    public void setOrderList(ArrayList<Order> orderList) {
+    public void setOrderList(List<Order> orderList) {
         this.orderList = orderList;
     }
 }

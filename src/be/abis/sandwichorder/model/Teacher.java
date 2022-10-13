@@ -1,28 +1,25 @@
 package be.abis.sandwichorder.model;
 
+import java.text.Format;
+
 public class Teacher extends Person{
 
-    private String currentCourseName;
+
 
     public Teacher(String personNr, String firstName, String lastName, String email, String company, String currentCourseName) {
         super(personNr,firstName, lastName, email, company);
-        this.currentCourseName = currentCourseName;
     }
 
     public Teacher(){};
 
 
     public void viewOrderOfToday(){
-        System.out.println();
+        System.out.println(this.getCurrentSession() + "\n");
+        System.out.println("---------------------\n");
+        this.getDayOrder().getAllPersons().stream()
+                .filter(p->p.getCurrentSession().equals(this.getCurrentSession()))
+                .forEach(p -> System.out.printf("%-20s %20s%n",p.getFirstName() + " "+ p.getLastName(), p.getHasOrdered()));
     }
 
 
-
-    public String getCurrentCourseName() {
-        return currentCourseName;
-    }
-
-    public void setCurrentCourseName(String course) {
-        this.currentCourseName = currentCourseName;
-    }
 }

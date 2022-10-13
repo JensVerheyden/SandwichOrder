@@ -13,8 +13,12 @@ public class Session {
     public Session(String courseName, Teacher teacher, List<Student> students, LocalDate date) {
         this.courseName = courseName;
         this.teacher = teacher;
+        teacher.setCurrentSession(courseName);
         this.students = students;
         this.date = date;
+        for(Student s : students){
+            s.setCurrentSession(courseName);
+        }
     }
 
 

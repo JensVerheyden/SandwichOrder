@@ -7,7 +7,7 @@ import java.util.List;
 public class Sandwich {
 
     private String ID;
-    private String orderInMenu;
+    //private String orderInMenu;
     private SandwichCompany sandwichCompany;
     private String name;
     private String category;
@@ -15,15 +15,13 @@ public class Sandwich {
     private String ingredientList;
     private String breadType;
     private boolean vegetables;
-    private boolean butter;
-    private String comment;
+    private String comment = "";
 
     public Sandwich() {
     }
 
-    public Sandwich(String ID, String orderInMenu, SandwichCompany sandwichCompany, String name, String category, String price, String ingredientList) {
+    public Sandwich(String ID, SandwichCompany sandwichCompany, String name, String category, String price, String ingredientList) {
         this.ID = ID;
-        this.orderInMenu = orderInMenu;
         this.sandwichCompany = sandwichCompany;
         this.name = name;
         this.category = category;
@@ -39,6 +37,7 @@ public class Sandwich {
         this.ID = ID;
     }
 
+    /*
     public String getOrderInMenu() {
         return orderInMenu;
     }
@@ -46,6 +45,8 @@ public class Sandwich {
     public void setOrderInMenu(String orderInMenu) {
         this.orderInMenu = orderInMenu;
     }
+
+     */
 
     public SandwichCompany getSandwichCompany() {
         return sandwichCompany;
@@ -101,14 +102,6 @@ public class Sandwich {
 
     public void setVegetables(boolean vegetables) {
         this.vegetables = vegetables;
-    }
-
-    public boolean isButter() {
-        return butter;
-    }
-
-    public void setButter(boolean butter) {
-        this.butter = butter;
     }
 
     public String getComment() {

@@ -38,13 +38,13 @@ public class FileStudentRepository implements PersonRepository {
     public static Student convertToStudentObj(String attr){
         String[] vals = attr.split(";");
         if(!vals[0].equals("")){
-            Person p = new Person();
-            p.setPersonNr(!vals[0].equals("null") ? Integer.valueOf(vals[0]) : null);
-            p.setFirstName(!vals[1].equals("null")? vals[1] : null );
-            p.setLastName(!vals[2].equals("null") ? vals[2] : null);
-            p.setEmail(!vals[3].equals( "null") ? vals[3] : null);
-            p.setCompany(!vals[4].equals("null") ? vals[4] : null);
-            return ((Student)p);
+            Student s = new Student();
+            s.setPersonNr(!vals[0].equals("null") ? Integer.valueOf(vals[0]) : null);
+            s.setFirstName(!vals[1].equals("null")? vals[1] : null );
+            s.setLastName(!vals[2].equals("null") ? vals[2] : null);
+            s.setEmail(!vals[3].equals( "null") ? vals[3] : null);
+            s.setCompany(!vals[4].equals("null") ? vals[4] : null);
+            return s;
         }
         return null;
     }

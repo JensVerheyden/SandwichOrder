@@ -1,11 +1,9 @@
 package be.abis.sandwichorder.manager;
 
-import be.abis.sandwichorder.model.DailySession;
 import be.abis.sandwichorder.model.Session;
 import be.abis.sandwichorder.repository.SessionRepository;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SessionManager {

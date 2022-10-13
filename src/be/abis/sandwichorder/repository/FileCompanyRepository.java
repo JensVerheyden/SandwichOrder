@@ -17,9 +17,14 @@ public class FileCompanyRepository implements CompanyRepository {
     private List<SandwichCompany> companies = new ArrayList<>();
     private static final String fileLocation = "src/be/abis/sandwichorder/resources/companies.csv";
 
-    public FileCompanyRepository() throws IOException {
+    public FileCompanyRepository(){
 
-        List<String> stringLines = Files.readAllLines(Path.of(fileLocation));
+        List<String> stringLines = null;
+        try {
+            stringLines = Files.readAllLines(Path.of(fileLocation));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         for (String s : stringLines) {
             String[] splittedLineArray = s.split(";");
 
@@ -37,7 +42,7 @@ public class FileCompanyRepository implements CompanyRepository {
         }
     }
 
-    public static FileCompanyRepository getInstance() throws IOException {
+    public static FileCompanyRepository getInstance() {
         if (instance == null) { instance = new FileCompanyRepository();}
         return instance;
     }

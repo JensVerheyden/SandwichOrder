@@ -72,7 +72,7 @@ public class SessionRepository {
 
     public List<Session> findByDate(LocalDate date){
         return sessions.stream()
-                .filter(s -> s.getDate() == date)
+                .filter(s -> s.getDate().equals(date))
                 .collect(Collectors.toList());
     }
 

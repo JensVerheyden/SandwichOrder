@@ -41,7 +41,7 @@ public class FileTeacherRepository implements PersonRepository{
             t.setLastName(!vals[2].equals("null")? vals[2]: null);
             t.setEmail(!vals[3].equals("null")? vals[3]: null);
             t.setCompany(!vals[4].equals("null")? vals[4]: null);
-            t.setCurrentCourseName(!vals[5].equals("null")? vals[5]: null);
+            t.setCurrentSession(!vals[5].equals("null")? vals[5]: null);
             return t;
         }
         return null;

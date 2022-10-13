@@ -1,22 +1,29 @@
 package be.abis.sandwichorder.model;
 
+import be.abis.sandwichorder.exception.SandwitchNotFoundException;
+
 import java.util.List;
 
-public class Menu {
+public abstract class Menu {
 
     String sandwichCompany;
     List<Sandwich> sandwichList;
 
-    public Menu(String sandwichCompany, List<Sandwich> sandwichList) {
-        this.sandwichCompany = sandwichCompany;
-        this.sandwichList = sandwichList;
+    public Menu() {
+
+    }
+
+    public Sandwich findSandwich(String name) throws SandwitchNotFoundException {
+        return sandwichList.stream()
+                .filter(s -> s.getName().equals(name))
+                .findFirst().orElseThrow(() -> new SandwitchNotFoundException("Sandwich not found"));
     }
 
     public void addSandwichToMenu(Sandwich sandwich) {
         sandwichList.add(sandwich);
     }
 
-    public void removeSandwich(Sandwich sandwich) {
+    public void removeSandwichFromMenu(Sandwich sandwich) {
         sandwichList.remove(sandwich);
     }
 
@@ -40,9 +47,13 @@ public class Menu {
 
     @Override
     public String toString() {
-        return "Menu{" +
-                "sandwichCompany=" + sandwichCompany +
-                ", sandwichList=" + sandwichList +
-                '}';
+        StringBuilder str = new StringBuilder();
+        str.append(this.getSandwichCompany()).append("\n")
+                .append("-------------------------------");
+        for (Sandwich s : this.getSandwichList()) {
+            str.append(String.format( "%-20s| %-20s| %-20s \n",
+                    s.getName(), (s.getIngredientList()!=null)?s.getIngredientList():"" , s.getPrice()));
+        }
+        return str.toString();
     }
 }
